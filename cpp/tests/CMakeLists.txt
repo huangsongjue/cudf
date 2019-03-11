@@ -27,6 +27,7 @@ include_directories("${GTEST_INCLUDE_DIR}"
                     "${CMAKE_SOURCE_DIR}/src"
                     "${CMAKE_SOURCE_DIR}/thirdparty/cub"
                     "${CMAKE_SOURCE_DIR}/thirdparty/moderngpu/src"
+                    "/memverge/home/songjue/dmo/src/include"
                     "${CMAKE_SOURCE_DIR}/thirdparty/rmm/include")
 
 ###################################################################################################
@@ -35,6 +36,7 @@ include_directories("${GTEST_INCLUDE_DIR}"
 link_directories("${CMAKE_CUDA_IMPLICIT_LINK_DIRECTORIES}" # CMAKE_CUDA_IMPLICIT_LINK_DIRECTORIES is an undocumented/unsupported variable containing the link directories for nvcc
                  "${CMAKE_BINARY_DIR}/lib"
                  "${FLATBUFFERS_LIBRARY_DIR}"
+                 "/memverge/home/songjue/dmo/_build_RETAIL/server/MemVergeDMO/lib"
                  "${GTEST_LIBRARY_DIR}")
 
 ###################################################################################################

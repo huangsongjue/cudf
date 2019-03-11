@@ -15,7 +15,7 @@
 #=============================================================================
 cmake_minimum_required(VERSION 3.12 FATAL_ERROR)
 
-project(CUDA_DATAFRAME VERSION 0.4.0 LANGUAGES C CXX CUDA)
+project(CUDA_DATAFRAME VERSION 0.5.1 LANGUAGES C CXX CUDA)
 
 ###################################################################################################
 # - build type ------------------------------------------------------------------------------------
@@ -143,6 +143,7 @@ include_directories("${ARROW_INCLUDE_DIR}"
                     "${CMAKE_SOURCE_DIR}/thirdparty/cub"
                     "${CMAKE_SOURCE_DIR}/thirdparty/moderngpu/src"
                     "${CMAKE_SOURCE_DIR}/thirdparty/rmm/include"
+                    "/memverge/home/songjue/dmo/src/include"
                     "${ZLIB_INCLUDE_DIRS}")
 
 ###################################################################################################
@@ -151,6 +152,7 @@ include_directories("${ARROW_INCLUDE_DIR}"
 link_directories("${CMAKE_CUDA_IMPLICIT_LINK_DIRECTORIES}" # CMAKE_CUDA_IMPLICIT_LINK_DIRECTORIES is an undocumented/unsupported variable containing the link directories for nvcc
                  "${CMAKE_BINARY_DIR}/lib"
                  "${FLATBUFFERS_LIBRARY_DIR}"
+                 "/memverge/home/songjue/dmo/_build_RETAIL/server/MemVergeDMO/lib"
                  "${GTEST_LIBRARY_DIR}")
 
 ###################################################################################################
@@ -231,7 +233,7 @@ endif(HT_LEGACY_ALLOCATOR)
 ###################################################################################################
 # - link libraries --------------------------------------------------------------------------------
 
-target_link_libraries(cudf rmm "${ARROW_LIB}" ${ZLIB_LIBRARIES} NVStrings)
+target_link_libraries(cudf mvfs rmm "${ARROW_LIB}" ${ZLIB_LIBRARIES} NVStrings)
 
 ###################################################################################################
 # - python cffi bindings --------------------------------------------------------------------------

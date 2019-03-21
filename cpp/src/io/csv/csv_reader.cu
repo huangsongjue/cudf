@@ -310,7 +310,12 @@ gdf_error read_csv(csv_read_arg *args)
 
 	if (args->input_data_form == gdf_csv_input_form::FILE_PATH)
 	{
-                const char *path = "dmo.daemon.sock.0";
+//                const char *path = "dmo.daemon.sock.0";
+                const char * path = getenv("DMO_SOCK_PATH");
+                if (!path) {
+                    perror("No DMO_SOCK_PATH set, using dmo.daemon.sock.0 as default.");
+                    path = "dmo.daemon.sock.0";
+                }
                 snprintf(conn_opt_.socket, 128, "%s", path);
 
 #ifdef _CHECK_DMO_PERF_
@@ -368,13 +373,6 @@ gdf_error read_csv(csv_read_arg *args)
                 double duration = (double)(finish - start) / CLOCKS_PER_SEC;
                 printf("\nmmap file %s, lasped time = %f\n", args->filepath_or_buffer, duration);
 #endif
-
-		//map_data = mmap(0, map_size, PROT_READ, MAP_PRIVATE, fd, 0);
-	
-		if (map_data == MAP_FAILED || map_size==0) { 
-                    mvfs_close_mc(connection_, fd);
-                    checkError(GDF_C_ERROR, "Error mapping file"); 
-                }
 	}
 	else if (args->input_data_form == gdf_csv_input_form::HOST_BUFFER)
 	{
